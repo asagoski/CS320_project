@@ -38,6 +38,7 @@ public class SearchRequestServlet extends HttpServlet {
 		
 		String errorMessage = null;
 		int result = 0;
+		int reservation = 1;
 		
 		IDatabase db = null;
 		DatabaseProvider.setInstance(new DerbyDatabase());
@@ -59,6 +60,8 @@ public class SearchRequestServlet extends HttpServlet {
 			String CheckOutDay = req.getParameter("CheckOutDay");
 			String CheckOutMonth = req.getParameter("CheckOutMonth");
 			String City = req.getParameter("City");
+			//int reservation = Integer.parseInt(req.getParameter("reservation"));
+			
 			
 			model.setCheckInDay(CheckInDay);
 			model.setCheckInMonth(CheckInMonth);
@@ -81,7 +84,9 @@ public class SearchRequestServlet extends HttpServlet {
 				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth, City);
 				//System.out.println(model.getHotelNames().get(1));
 				//resp.sendRedirect("/HotelReservationSystem/Results");
+				
 			}	
+		
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid";
 		}
@@ -93,7 +98,8 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("CheckOutMonth", req.getParameter("CheckOutMonth"));
 		//req.setAttribute("roomType", req.getParameter("roomType"));
 		req.setAttribute("City", req.getParameter("City"));
-		//req.setAttribute("reservation", req.getParameter("reservation"));
+		req.setAttribute("reservation", req.getParameter("reservation"));
+		req.setAttribute("result", result);
 		
 	
 		// Add result objects as request attributes
@@ -135,25 +141,25 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("rooms11", model.getRooms().get(11));
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("result", result);
+		req.setAttribute("reservation", req.getParameter("reservation"));
 		
 		int usrID = 2;
 		String site = model.getHotelNames().get(1);
-		String room = "2";
+		String room = model.getCity();
 		String dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
 		String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
-		//String cost = model.getPrices().get(1);
-		String cost = "500";
+		String cost = model.getPrices().get(1).substring(3, 6);
+		//String cost = "500";
 			
 		// insert new book (and possibly new author) into DB
 		db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);
 		
 		// Forward to view to render the result HTML document
+		//req.getRequestDispatcher("/_view/checkRoomAvailability.jsp").forward(req, resp);
+			
+		System.out.println(reservation);
+			// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/checkRoomAvailability.jsp").forward(req, resp);
-		
-		
-			
-			
-		
 	}
 
 }

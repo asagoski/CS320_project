@@ -48,6 +48,9 @@ form.reservations{
 			<li>${reservation0}</li>
 			<li>${reservation1}</li>
 			<li>${reservation2}</li>
+			<li>${reservation3}</li>
+			<li>${reservation4}</li>
+			<li>${reservation5}</li>
 		</ol>
 
 	 	<input class="selectButton" type="Submit" name="select" value="Display Reservations">

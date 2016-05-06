@@ -242,10 +242,10 @@
 			</table> 
   		</form>
   		
-  		<form class="makeReservation" action="${pageContext.servletContext.contextPath}/checkRoomAvailablity" method="post">
+  		<form class="makeReservation" action="${pageContext.servletContext.contextPath}/Account" method="post">
 		  	Make Reservation:
-  			<input type="text" name="reservation" value="1" />
-  			<input class="selectButton" type="Submit" name="select" value="Confirm Selection">
+  			<input type="text" name="reservation" value="${reservation}"/>
+  			<input class="selectButton" type="Submit" name="confirm" value="Confirm Selection">
   			<table>
   			<tr>
   			<td class="label">Selected: ${result}</td>

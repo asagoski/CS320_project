@@ -84,11 +84,12 @@ public class AccountServlet extends HttpServlet {
 //		for(int i = 0; i < reservations.size(); i++){
 //			req.setAttribute("reservation" + i, reservations.get(0).getSite());							
 //		}
-		req.setAttribute("reservation0", "Hotel A | 05/25/16 | 05/27/16 | $400");
-		req.setAttribute("reservation1", reservationList.get(0).getSite()+" | "+reservationList.get(0).getCheckInDate()+" | "+reservationList.get(0).getCheckOutDate()+" | "+reservationList.get(0).getCost());
-		req.setAttribute("reservation2", reservationList.get(1).getCheckInDate()+" | "+reservationList.get(1).getCheckOutDate());
-		//+reservationList.get(7).getCost())
-		//req.setAttribute("NumReserv", reservations.size());		
+//		req.setAttribute("reservation0", "Hotel A | 05/25/16 | 05/27/16 | $400");
+//		req.setAttribute("reservation1", reservationList.get(0).getSite()+" | "+reservationList.get(0).getCheckInDate()+" | "+reservationList.get(0).getCheckOutDate()+" | "+reservationList.get(0).getCost());
+//		req.setAttribute("reservation2", reservationList.get(1).getSite()+" | "+reservationList.get(1).getCheckInDate()+" | "+reservationList.get(1).getCheckOutDate()+" | "+reservationList.get(1).getCost());
+		for(int i = 0; i < reservationList.size(); i++){
+			req.setAttribute("reservation" + i, reservationList.get(i).getRoom()+" | "+reservationList.get(i).getSite()+" | "+reservationList.get(i).getCheckInDate()+" | "+reservationList.get(i).getCheckOutDate()+" | $"+reservationList.get(i).getCost());							
+		}	
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/Account.jsp").forward(req, resp);
