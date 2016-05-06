@@ -150,14 +150,6 @@ public class SearchRequestServlet extends HttpServlet {
 		String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
 		String cost = model.getPrices().get(1).substring(3, 6);
 		//String cost = "500";
-			
-
-			usrID = 2;
-			site = "Home";
-			room = "2";
-			dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
-			dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
-			cost = model.getPrices().get(1);
 				
 
 		// insert new book (and possibly new author) into DB
