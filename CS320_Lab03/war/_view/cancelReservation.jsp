@@ -67,6 +67,12 @@ input.returnButton {
 			<li>${reservation3}</li>
 			<li>${reservation4}</li>
 			<li>${reservation5}</li>
+			<li>${reservation6}</li>
+			<li>${reservation7}</li>
+			<li>${reservation8}</li>
+			<li>${reservation9}</li>
+			<li>${reservation10}</li>
+			<li>${reservation11}</li>
 		</ol>
 
 	 	<!--input class="selectButton" type="Submit" name="select" value="Display Reservations"-->

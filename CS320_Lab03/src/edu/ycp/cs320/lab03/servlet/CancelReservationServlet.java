@@ -68,6 +68,7 @@ public class CancelReservationServlet extends HttpServlet {
 				req.setAttribute("first", req.getParameter("first"));
 				req.setAttribute("second", req.getParameter("second"));
 				
+				db.removeReservationByReservID(result);
 				
 				// Add result objects as request attributes
 				req.setAttribute("errorMessage", errorMessage);
@@ -83,6 +84,8 @@ public class CancelReservationServlet extends HttpServlet {
 				for(int i = 0; i < reservationList.size(); i++){
 					req.setAttribute("reservation" + i, reservationList.get(i).getRoom()+" | "+reservationList.get(i).getSite()+" | "+reservationList.get(i).getCheckInDate()+" | "+reservationList.get(i).getCheckOutDate()+" | $"+reservationList.get(i).getCost());							
 				}	
+				
+				
 				
 				// Forward to view to render the result HTML document
 				req.getRequestDispatcher("/_view/cancelReservation.jsp").forward(req, resp);
