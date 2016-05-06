@@ -492,7 +492,7 @@ public class DerbyDatabase implements IDatabase {
 							"room varchar(3)," +
 							"checkInDate varchar(9)," +
 							"checkOutDate varchar(9)," +
-							"cost varchar(5)" +
+							"cost varchar(8)" +
 							")"
 					);
 					stmt2.executeUpdate();

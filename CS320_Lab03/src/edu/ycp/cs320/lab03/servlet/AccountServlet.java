@@ -85,9 +85,9 @@ public class AccountServlet extends HttpServlet {
 //			req.setAttribute("reservation" + i, reservations.get(0).getSite());							
 //		}
 		req.setAttribute("reservation0", "Hotel A | 05/25/16 | 05/27/16 | $400");
-		req.setAttribute("reservation1", reservationList.get(0).getSite()+" | "+" | "+reservationList.get(0).getCheckInDate()+" | "+reservationList.get(0).getCheckOutDate()+" | "+reservationList.get(0).getCost());
+		req.setAttribute("reservation1", reservationList.get(0).getSite()+" | "+reservationList.get(0).getCheckInDate()+" | "+reservationList.get(0).getCheckOutDate()+" | "+reservationList.get(0).getCost());
 		req.setAttribute("reservation2", reservationList.get(1).getCheckInDate()+" | "+reservationList.get(1).getCheckOutDate());
-		
+		//+reservationList.get(7).getCost())
 		//req.setAttribute("NumReserv", reservations.size());		
 		
 		// Forward to view to render the result HTML document

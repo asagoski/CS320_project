@@ -136,20 +136,23 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("result", result);
 		
+		int usrID = 2;
+		String site = model.getHotelNames().get(1);
+		String room = "2";
+		String dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
+		String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
+		//String cost = model.getPrices().get(1);
+		String cost = "500";
+			
+		// insert new book (and possibly new author) into DB
+		db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);
+		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/checkRoomAvailability.jsp").forward(req, resp);
 		
 		
 			
-			int usrID = 1;
-			String site = "Home";
-			String room = "2";
-			String dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
-			String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
-			String cost = model.getPrices().get(1);
-				
-		// insert new book (and possibly new author) into DB
-		db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);
+			
 		
 	}
 
