@@ -143,6 +143,7 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("result", result);
 		req.setAttribute("reservation", req.getParameter("reservation"));
 		
+
 		int usrID = 2;
 		String site = model.getHotelNames().get(result-1);
 		String room = model.getCity();
@@ -150,6 +151,10 @@ public class SearchRequestServlet extends HttpServlet {
 		String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
 		String cost = model.getPrices().get(result-1).substring(3, model.getPrices().get(result-1).length()).replace(",", "");
 		//String cost = "500";
+
+		// Forward to view to render the result HTML document
+		req.getRequestDispatcher("/_view/checkRoomAvailability.jsp").forward(req, resp);
+		
 				
 
 		// insert new book (and possibly new author) into DB
