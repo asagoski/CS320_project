@@ -83,6 +83,12 @@ public class FakeDatabase implements IDatabase {
 		// return new Account Id
 		return accountID;
 	}
+	
+	@Override
+	public List<Reservation> removeReservationByReservID(int reservID){
+		List<Reservation> current = null;
+		return current;
+	}
 
 	@Override
 	public Integer insertReservationIntoReservationsTable(int usr, String site, String room, String dateStart,

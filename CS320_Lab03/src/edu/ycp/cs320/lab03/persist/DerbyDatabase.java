@@ -11,6 +11,7 @@ import java.util.List;
 
 //import edu.ycp.cs320.lab03.model.Pair;
 import edu.ycp.cs320.lab03.persist.DBUtil;
+import edu.ycp.cs320.lab03.FindAllReservationsWithUser;
 //import edu.ycp.cs320.lab03.persist.DerbyDatabase.Transaction;
 import edu.ycp.cs320.lab03.model.Account;
 import edu.ycp.cs320.lab03.model.Reservation;
@@ -373,6 +374,123 @@ public class DerbyDatabase implements IDatabase {
 						DBUtil.closeQuietly(stmt4);
 						DBUtil.closeQuietly(resultSet5);
 						DBUtil.closeQuietly(stmt5);					}
+				}
+			});
+		}
+		
+		// transaction that deletes reservation and returns a list of current reservations (or null)
+		@Override
+		public List<Reservation> removeReservationByReservID(final int reservID) {
+			return executeTransaction(new Transaction<List<Reservation>>() {
+				@Override
+				public List<Reservation> execute(Connection conn) throws SQLException {
+					PreparedStatement stmt1 = null;
+					PreparedStatement stmt2 = null;
+					PreparedStatement stmt3 = null;
+					PreparedStatement stmt4 = null;
+					PreparedStatement stmt5 = null;
+					PreparedStatement stmt6 = null;							
+					
+					ResultSet resultSet1    = null;			
+					ResultSet resultSet2    = null;
+//					ResultSet resultSet3    = null;
+//					ResultSet resultSet4    = null;
+					ResultSet resultSet5    = null;
+//					ResultSet resultSet6    = null;				
+					
+					try {
+						// first get the Author(s) of the Book to be deleted
+						// just in case it's the only Book by this Author
+						// in which case, we should also remove the Author(s)
+						stmt1 = conn.prepareStatement(
+								"select account.* " +
+								"  from  account, reservations " +
+								"  where reservations.reservationID = ? " +
+								"    and account.userID = reservations.userID " 
+						);
+						
+						// get the Book's Author(s)
+						stmt1.setInt(1, reservID);
+						resultSet1 = stmt1.executeQuery();
+						
+						// assemble list of Authors from query
+						List<Account> users = new ArrayList<Account>();					
+					
+						while (resultSet1.next()) {
+							Account user = new Account();
+							loadAccount(user, resultSet1, 1);
+							users.add(user);
+						}
+						
+						// check if any Authors were found
+						// this shouldn't be necessary, there should not be a Book in the DB without an Author
+						if (users.size() == 0) {
+							System.out.println("No accounts were found for that reservation");
+						}
+											
+						// now get the Reservation to be deleted
+						// we will need the id to remove associated entires in BookAuthors (junction table)
+					
+						stmt2 = conn.prepareStatement(
+								"select reservations.* " +
+								"  from  reservations " +
+								"  where reservations.reservationID = ? "
+						);
+						
+						// get the Reservations
+						stmt2.setInt(1, reservID);
+						resultSet2 = stmt2.executeQuery();
+						
+						// assemble list of Books from query
+						List<Reservation> reservations = new ArrayList<Reservation>();					
+					
+						while (resultSet2.next()) {
+							Reservation reservation = new Reservation();
+							loadReservation(reservation, resultSet2, 1);
+							reservations.add(reservation);
+						}
+						
+						// first delete entries in BookAuthors junction table
+						// can't delete entries in Books or Authors tables while they have foreign keys in junction table
+						// prepare to delete the junction table entries (bookAuthors)
+						stmt3 = conn.prepareStatement(
+								"delete from reservations " +
+								"  where reservationID = ? "
+						);
+						
+						// delete the reservation from the reservations table.
+						stmt3.setInt(1, reservations.get(0).getReservID());
+						stmt3.executeUpdate();
+						
+						System.out.println("Removed reservation" + reservID + "From reservation database.");									
+						
+						// now check if the Author(s) have any Books remaining in the DB
+						// only need to check if there are any entries in junction table that have this author ID
+						List<Reservation> current = null;
+						try {
+							current = FindAllReservationsWithUser.main(users.get(0).getName());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 							
+								DBUtil.closeQuietly(stmt6);					
+							
+							// we're done with this
+							DBUtil.closeQuietly(resultSet5);
+							DBUtil.closeQuietly(stmt5);
+						
+						return current;
+					} finally {
+						DBUtil.closeQuietly(resultSet1);
+						DBUtil.closeQuietly(resultSet2);
+//						DBUtil.closeQuietly(resultSet3);
+//						DBUtil.closeQuietly(resultSet4);
+						
+						DBUtil.closeQuietly(stmt1);
+						DBUtil.closeQuietly(stmt2);
+						DBUtil.closeQuietly(stmt3);					
+						DBUtil.closeQuietly(stmt4);					
+					}
 				}
 			});
 		}

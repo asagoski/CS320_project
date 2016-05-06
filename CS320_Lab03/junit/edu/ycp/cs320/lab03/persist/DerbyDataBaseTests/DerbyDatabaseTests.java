@@ -186,46 +186,44 @@ public class DerbyDatabaseTests {
 			fail("Failed to insert new account <" + username + "> into DB");
 		}
 	}
-/*
+
 	@Test
-	public void testRemoveReservationBySiteandUsername() {
-		System.out.println("\n*** Testing removeBookByTitle ***");
+	public void testRemoveReservationByReservationID() {
+		System.out.println("\n*** Testing removeReservationbyReservationID ***");
 		
-		String title     = "Outliers";
-		String isbn      = "4-10-2016-02";
-		String lastName  = "Malcolm";
-		String firstName = "Gladwell";
+		int usr     = 2;
+		String site = "away";
+		String room  = "3";
+		String dateStart = "04/15/16";
+		String dateEnd = "04/25/16";
+		String cost = "146";
 				
-		// insert new book (and new author) into DB
-		Integer book_id = db.insertBookIntoBooksTable(title, isbn, lastName, firstName);
+		// insert new reservation into DB
+		Integer reservID = db.insertReservationIntoReservationsTable(usr, site, room, dateStart, dateEnd, cost);
+		int pre = db.findAllReservationsWithUser("ryan").size();
 		
 		// check to see that insertion was successful before proceeding
-		if (book_id > 0) {
+		if (reservID > 0) {
 			// now delete Book (and its Author) from DB
-			List<Author> authors = db.removeBookByTitle(title);
+			List<Reservation> reservation = db.removeReservationByReservID(reservID);
 			
-			if (authors.isEmpty()) {
-				System.out.println("Failed to remove Author(s) for book with title <" + title + ">");
-				fail("No Author(s) removed from DB for Book with title <" + title + ">");
+			if(reservation == null){
+				System.out.println("No valid reservations");
+			}
+			else if (pre < reservation.size()) {
+				System.out.println("Failed to remove reservation");
+				fail("Reservation failed to remove.");
 			}
 			else {
-				System.out.println("Author <" + authors.get(0).getLastname() + ", " + authors.get(0).getFirstname() + "> removed from Library DB");
-			}					
-			
-			// get the list of (Author, Book) pairs from DB
-			authorBookList = db.findAuthorAndBookByTitle(title);
-			
-			if (authorBookList.isEmpty()) {
-				System.out.println("All Books with title <" + title + "> were removed from the Library DB");
-			}
-			else {
-				fail("Book with title <" + title + "> remains in Library DB after delete");			
+				for(int i = 0; i < reservation.size(); i++){
+					System.out.println(reservation.get(i).getReservID() + ", " + reservation.get(i).getSite());
+				}
 			}
 		}
 		else {
-			System.out.println("Failed to insert new book (ID: " + book_id + ") into Books table: <" + title + ">");
-			fail("Failed to insert new book <" + title + "> into Library DB");			
+			System.out.println("Failed to insert new reservation (ID: " + reservID + ") into reservations table.");
+			fail("Failed to insert new reservation into DB");			
 		}
 	}
-	*/
+	
 }
