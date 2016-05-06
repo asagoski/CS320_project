@@ -38,7 +38,7 @@ public class SearchRequestServlet extends HttpServlet {
 		
 		String errorMessage = null;
 		int result = 0;
-		int reservation = 1;
+		int reservation = 0;
 		
 		IDatabase db = null;
 		DatabaseProvider.setInstance(new DerbyDatabase());
@@ -144,11 +144,11 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("reservation", req.getParameter("reservation"));
 		
 		int usrID = 2;
-		String site = model.getHotelNames().get(1);
+		String site = model.getHotelNames().get(result-1);
 		String room = model.getCity();
 		String dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
 		String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
-		String cost = model.getPrices().get(1).substring(3, model.getPrices().get(1).length()).replace(",", "");
+		String cost = model.getPrices().get(result-1).substring(3, model.getPrices().get(result-1).length()).replace(",", "");
 		//String cost = "500";
 				
 

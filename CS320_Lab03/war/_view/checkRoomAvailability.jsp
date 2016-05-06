@@ -253,8 +253,8 @@
 		</table>
 		</form>
   		
-  		<form class="reserve" action="../HotelReservationSystem/Confirmation">
-		<input class="reserveButton" type="submit" name="reserve" value="Reserve">
+  		<form class="reserve" action="../HotelReservationSystem/Account">
+		<input class="reserveButton" type="submit" name="reserve" value="Return to Account Page">
 		</form>	
 	</body>
 </html>
