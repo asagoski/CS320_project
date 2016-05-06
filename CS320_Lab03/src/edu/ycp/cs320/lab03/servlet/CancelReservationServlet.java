@@ -59,7 +59,7 @@ public class CancelReservationServlet extends HttpServlet {
 				
 				try {
 						//errorMessage = "No Reservations";
-					
+					result=Integer.parseInt(req.getParameter("cancelReservation"));
 				} catch (NumberFormatException e) {
 					errorMessage = "Invalid double";
 				}
@@ -72,6 +72,7 @@ public class CancelReservationServlet extends HttpServlet {
 				// Add result objects as request attributes
 				req.setAttribute("errorMessage", errorMessage);
 				req.setAttribute("result", result);
+				req.setAttribute("cancelReservation", req.getParameter("cancelReservation"));
 				//Set a series of strings as the current reservations
 //				for(int i = 0; i < reservations.size(); i++){
 //					req.setAttribute("reservation" + i, reservations.get(0).getSite());							

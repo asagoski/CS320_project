@@ -132,7 +132,7 @@
   				<td class="City"><input type="text" name="City" value="${City}" />(Baltimore or Harrisburg) </td>
   				</tr>
   			</table>
-  			<input class="selectButton" type="Submit" name="select" value="Search">
+  			<!-- input class="selectButton" type="Submit" name="select" value="Search"-->
   			<h2 class="titleSR">Search Results</h2>
 			<table>
 				<tr>
@@ -240,9 +240,9 @@
 	   			<td>${prices11}</td>
 	  			</tr>
 			</table> 
-  		</form>
   		
-  		<form class="makeReservation" action="${pageContext.servletContext.contextPath}/Account" method="post">
+  		
+  		<!-- form class="makeReservation" action="${pageContext.servletContext.contextPath}/checkRoomAvailability" method="post"-->
 		  	Make Reservation:
   			<input type="text" name="reservation" value="${reservation}"/>
   			<input class="selectButton" type="Submit" name="confirm" value="Confirm Selection">

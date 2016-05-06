@@ -60,7 +60,7 @@ public class SearchRequestServlet extends HttpServlet {
 			String CheckOutDay = req.getParameter("CheckOutDay");
 			String CheckOutMonth = req.getParameter("CheckOutMonth");
 			String City = req.getParameter("City");
-			//int reservation = Integer.parseInt(req.getParameter("reservation"));
+			reservation = Integer.parseInt(req.getParameter("reservation"));
 			
 			
 			model.setCheckInDay(CheckInDay);
@@ -79,7 +79,7 @@ public class SearchRequestServlet extends HttpServlet {
 				System.out.println(CheckInDate2);
 				System.out.println(CheckOutDay);
 				System.out.println(City2);
-				//result = reservation;
+				result = reservation;
 				System.out.println(result);
 				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth, City);
 				//System.out.println(model.getHotelNames().get(1));
@@ -148,7 +148,7 @@ public class SearchRequestServlet extends HttpServlet {
 		String room = model.getCity();
 		String dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
 		String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
-		String cost = model.getPrices().get(1).substring(3, 6);
+		String cost = model.getPrices().get(1).substring(3, model.getPrices().get(1).length()).replace(",", "");
 		//String cost = "500";
 				
 
